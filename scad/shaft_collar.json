@@ -1,0 +1,21 @@
+{
+    "fileFormatVersion": "1",
+    "parameterSets": {
+        "Collar": {
+            "thickness": "4"
+        },
+        "ThinCollar": {
+            "thickness": "2"
+        },
+        "New set 1": {
+            "$fa": "1",
+            "$fs": "0.5",
+            "cornerRadius": "2",
+            "lockHeight": "7",
+            "lockWidth": "4",
+            "shaftTolerance": "0.20000000000000001",
+            "thickness": "2",
+            "width": "2"
+        }
+    }
+}
