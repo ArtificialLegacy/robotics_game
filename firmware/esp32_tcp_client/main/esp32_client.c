@@ -3,8 +3,8 @@
 
 #include "./robot.h"
 
-#include "./wifi.c"
 #include "./tcp.c"
+#include "./wifi.c"
 
 void app_main(void) {
   // Initialize NVS
