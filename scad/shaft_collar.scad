@@ -26,12 +26,10 @@ union() {
         translate([radius, radius, 0]) {
             cylinder(h=thickness, d=lockHeight+width*2);
         }
-        translate([radius, radius, -0.1]) {
-            //shaftlock(thickness, lockWidth, lockHeight, shaftTolerance, shaftTolerance);
-            cylinder(h=thickness+0.2, d=lockHeight+shaftTolerance);
+        translate([radius, radius, thickness/2]) {
+            shaftlock(thickness, lockWidth, lockHeight, shaftTolerance, shaftTolerance);
         }
 
-        
          // cutout
         translate([radius, width*1.5+lockHeight-0.1, thickness/2]) {
             cuboid([cutout, width+0.2, thickness+0.2]);

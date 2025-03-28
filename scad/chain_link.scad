@@ -66,12 +66,12 @@ difference() {
     }
 
     // snap cutout
-    translate([0.9, 10.5-(innerpin-snapWidth)/2, 2.5]) {
+    translate([0.9, 10.25-(innerpin-snapWidth)/2, 2.5]) {
         cube([7.2, innerpin-snapWidth, 3.6]);
     }
 
     // full cutout
-    translate([0.9, 10.5-(innerpin+pinTolerance)/2, 5.1-fullCutoutHeight]) {
+    translate([0.9, 10.25-(innerpin+pinTolerance)/2, 5.1-fullCutoutHeight]) {
         cuboid([7.2, innerpin+pinTolerance, fullCutoutHeight], anchor=[-1, -1, -1], rounding=1, edges=[BOT+FWD, BOT+BACK]);
     }
 }

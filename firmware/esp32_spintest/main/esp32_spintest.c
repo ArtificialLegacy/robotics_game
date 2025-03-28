@@ -20,6 +20,11 @@
 #define FWD2 GPIO_NUM_18
 #define BAK2 GPIO_NUM_19
 
+#define LED GPIO_NUM_2
+
+#define ACTIVE_TIME 250
+#define INACTIVE_TIME 100
+
 void init_motor(gpio_num_t pin) {
   ledc_timer_config_t ledc_timer = {.speed_mode = LEDC_MODE,
                                     .duty_resolution = LEDC_DUTY_RES,
@@ -47,8 +52,11 @@ void app_main(void) {
   gpio_set_direction(FWD2, GPIO_MODE_OUTPUT);
   gpio_set_direction(BAK2, GPIO_MODE_OUTPUT);
 
+  gpio_set_direction(LED, GPIO_MODE_OUTPUT);
+
   gpio_set_level(FWD1, 1);
   gpio_set_level(FWD2, 1);
+  gpio_set_level(LED, 1);
 
   init_motor(PWM1);
   init_motor(PWM2);
@@ -56,21 +64,50 @@ void app_main(void) {
   ESP_ERROR_CHECK(ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, LEDC_DUTY));
   ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, LEDC_CHANNEL));
 
-  vTaskDelay(100);
+  vTaskDelay(ACTIVE_TIME);
 
   gpio_set_level(FWD1, 0);
   gpio_set_level(FWD2, 0);
+  gpio_set_level(LED, 0);
 
-  vTaskDelay(100);
+  vTaskDelay(INACTIVE_TIME);
 
   gpio_set_level(BAK1, 1);
   gpio_set_level(BAK2, 1);
+  gpio_set_level(LED, 1);
 
-  vTaskDelay(100);
-
-  ESP_ERROR_CHECK(ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, 0));
-  ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, LEDC_CHANNEL));
+  vTaskDelay(ACTIVE_TIME);
 
   gpio_set_level(BAK1, 0);
   gpio_set_level(BAK2, 0);
+  gpio_set_level(LED, 0);
+
+  vTaskDelay(INACTIVE_TIME);
+
+  gpio_set_level(FWD1, 1);
+  gpio_set_level(BAK2, 1);
+  gpio_set_level(LED, 1);
+
+  vTaskDelay(ACTIVE_TIME);
+
+  gpio_set_level(FWD1, 0);
+  gpio_set_level(BAK2, 0);
+  gpio_set_level(LED, 0);
+
+  vTaskDelay(INACTIVE_TIME);
+
+  gpio_set_level(BAK1, 1);
+  gpio_set_level(FWD2, 1);
+  gpio_set_level(LED, 1);
+
+  vTaskDelay(ACTIVE_TIME);
+
+  gpio_set_level(FWD1, 0);
+  gpio_set_level(FWD2, 0);
+  gpio_set_level(BAK1, 0);
+  gpio_set_level(BAK2, 0);
+  gpio_set_level(LED, 0);
+
+  ESP_ERROR_CHECK(ledc_set_duty(LEDC_MODE, LEDC_CHANNEL, 0));
+  ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, LEDC_CHANNEL));
 }
